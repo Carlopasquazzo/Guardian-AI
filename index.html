@@ -6,178 +6,83 @@
 <title>Guardian AI — Confluence Engine</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   :root {
-    --bg: #f5f4f0;
-    --bg2: #ffffff;
-    --bg3: #f0ede8;
-    --border: rgba(0,0,0,0.08);
-    --border2: rgba(0,0,0,0.14);
-    --text: #1a1a18;
-    --text2: #6b6a66;
-    --text3: #a09e99;
-    --purple: #534AB7;
-    --purple-bg: #EEEDFE;
-    --teal: #0F6E56;
-    --teal-bg: #E1F5EE;
-    --coral: #993C1D;
-    --coral-bg: #FAECE7;
-    --blue: #185FA5;
-    --blue-bg: #E6F1FB;
-    --amber: #854F0B;
-    --amber-bg: #FAEEDA;
-    --gray: #444441;
-    --gray-bg: #F1EFE8;
-    --radius: 12px;
-    --radius-sm: 8px;
+    --bg: #f5f4f0; --bg2: #ffffff; --bg3: #f0ede8;
+    --border: rgba(0,0,0,0.08); --border2: rgba(0,0,0,0.14);
+    --text: #1a1a18; --text2: #6b6a66; --text3: #a09e99;
+    --purple: #534AB7; --purple-bg: #EEEDFE;
+    --teal: #0F6E56; --teal-bg: #E1F5EE;
+    --coral: #993C1D; --coral-bg: #FAECE7;
+    --blue: #185FA5; --blue-bg: #E6F1FB;
+    --amber: #854F0B; --amber-bg: #FAEEDA;
+    --gray: #444441; --gray-bg: #F1EFE8;
+    --radius: 12px; --radius-sm: 8px;
   }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    min-height: 100vh;
-    font-size: 14px;
-    line-height: 1.5;
-  }
-
-  header {
-    background: var(--bg2);
-    border-bottom: 1px solid var(--border);
-    padding: 16px 32px;
-    display: flex; align-items: center; justify-content: space-between;
-    position: sticky; top: 0; z-index: 100;
-  }
-  .logo { display: flex; align-items: center; gap: 10px; }
-  .logo-mark {
-    width: 28px; height: 28px; border-radius: 7px;
-    background: var(--purple-bg);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 13px; font-weight: 600; color: var(--purple);
-  }
-  .logo-name { font-size: 14px; font-weight: 600; }
-  .logo-sub { font-size: 11px; color: var(--text3); }
-  .header-badge {
-    font-size: 11px; font-weight: 500;
-    background: var(--teal-bg); color: var(--teal);
-    padding: 3px 10px; border-radius: 20px;
-  }
-
-  .page { max-width: 860px; margin: 0 auto; padding: 32px 24px 64px; }
-
-  .hero { margin-bottom: 32px; }
-  .hero-eyebrow { font-size: 11px; font-weight: 500; color: var(--text3); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px; }
-  .hero h1 { font-size: 26px; font-weight: 600; margin-bottom: 8px; letter-spacing: -0.01em; }
-  .hero h1 em { font-style: normal; color: var(--purple); }
-  .hero p { font-size: 13px; color: var(--text2); line-height: 1.65; max-width: 520px; }
-
-  .section { margin-bottom: 40px; }
-  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
-  .section-num { font-size: 10px; font-weight: 600; color: var(--text3); background: var(--bg3); border-radius: 4px; padding: 2px 6px; letter-spacing: .06em; }
-  .section-title { font-size: 13px; font-weight: 600; color: var(--text2); text-transform: uppercase; letter-spacing: .02em; }
-
-  .card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 22px; margin-bottom: 10px; }
-
-  .layer-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 14px; }
-  .layer-card { background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 14px; }
-  .layer-name { font-size: 13px; font-weight: 600; margin-bottom: 2px; }
-  .layer-desc { font-size: 11px; color: var(--text3); margin-bottom: 12px; }
-  .slider-lbl { font-size: 11px; color: var(--text2); margin-bottom: 3px; }
-  .slider-row { display: flex; align-items: center; gap: 8px; }
-  .slider-val { font-size: 18px; font-weight: 600; min-width: 42px; text-align: right; }
-  .scale-labels { display: flex; justify-content: space-between; font-size: 10px; color: var(--text3); margin-top: 2px; }
-
-  input[type=range] {
-    -webkit-appearance: none; appearance: none;
-    flex: 1; width: 100%; height: 4px; border-radius: 2px;
-    background: var(--border2); outline: none; cursor: pointer;
-  }
-  input[type=range]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 16px; height: 16px; border-radius: 50%;
-    background: #fff; border: 2px solid #7F77DD;
-    cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,0.15);
-  }
-
-  .result-panel {
-    background: var(--bg3); border: 1px solid var(--border);
-    border-radius: var(--radius-sm); padding: 18px 20px;
-    display: grid; grid-template-columns: 1fr auto;
-    gap: 20px; align-items: center;
-  }
-  .result-label { font-size: 11px; font-weight: 500; color: var(--text2); margin-bottom: 10px; }
-  .bar-row { display: flex; gap: 8px; align-items: center; margin-bottom: 7px; }
-  .bar-name { font-size: 11px; color: var(--text2); width: 82px; }
-  .bar-wrap { flex: 1; background: var(--border2); border-radius: 4px; height: 8px; overflow: hidden; }
-  .bar-fill { height: 100%; border-radius: 4px; transition: width .4s; }
-  .bar-pct { font-size: 11px; color: var(--text2); width: 34px; text-align: right; }
-  .formula { font-size: 11px; color: var(--text3); margin-top: 6px; }
-
-  .score-circle {
-    width: 76px; height: 76px; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 22px; font-weight: 600;
-    border: 2px solid transparent; transition: all .4s;
-  }
-  .signal-box {
-    margin-top: 8px; padding: 5px 14px; border-radius: 7px;
-    font-size: 13px; font-weight: 600; text-align: center;
-    letter-spacing: .05em; border: 1.5px solid transparent; transition: all .4s;
-  }
-  .conf-lbl { font-size: 10px; color: var(--text3); text-align: center; margin-top: 4px; }
-  .sim-note { font-size: 11px; color: var(--text3); line-height: 1.65; margin-top: 12px; }
-
-  .row-label { font-size: 11px; font-weight: 500; color: var(--text3); letter-spacing: .07em; text-transform: uppercase; margin: 16px 0 8px; }
-  .tag-group { display: flex; flex-wrap: wrap; gap: 6px; }
-  .tag {
-    font-size: 12px; padding: 5px 12px; border-radius: 20px;
-    border: 1px solid var(--border2); color: var(--text2);
-    cursor: pointer; background: var(--bg2);
-    transition: all .15s; user-select: none;
-  }
-  .tag:hover { border-color: var(--purple); color: var(--purple); }
-  .tag.on { background: var(--purple-bg); color: var(--purple); border-color: rgba(83,74,183,.35); font-weight: 500; }
-  .tag.style-on { background: var(--blue-bg); color: var(--blue); border-color: rgba(24,95,165,.3); font-weight: 500; }
-
-  .total-row {
-    display: flex; align-items: center; gap: 10px;
-    background: var(--bg3); border: 1px solid var(--border);
-    border-radius: var(--radius-sm); padding: 10px 14px; margin: 14px 0;
-  }
-  .total-badge {
-    font-size: 12px; font-weight: 600; padding: 3px 10px;
-    border-radius: 20px; border: 1px solid transparent;
-    transition: all .2s; white-space: nowrap;
-  }
-  .total-hint { font-size: 11px; color: var(--text2); }
-
-  .submit-btn {
-    width: 100%; padding: 13px;
-    background: var(--purple-bg); border: 1.5px solid rgba(83,74,183,.4);
-    border-radius: var(--radius-sm);
-    font-size: 14px; font-weight: 600; color: var(--purple);
-    cursor: pointer; transition: all .15s;
-  }
-  .submit-btn:hover:not(:disabled) { background: #E0DEFA; border-color: var(--purple); }
-  .submit-btn:disabled { opacity: .35; cursor: default; }
-  .thank-msg { font-size: 13px; font-weight: 500; color: var(--teal); text-align: center; padding: 12px 0; }
-
-  .res-row { display: flex; justify-content: space-between; font-size: 12px; color: var(--text2); margin-bottom: 3px; }
-  .res-bar-wrap { background: var(--border); border-radius: 4px; height: 7px; overflow: hidden; margin-bottom: 10px; }
-  .res-bar { height: 100%; border-radius: 4px; transition: width .5s; }
-
-  footer {
-    border-top: 1px solid var(--border); padding: 20px 32px;
-    display: flex; justify-content: space-between;
-    font-size: 11px; color: var(--text3); background: var(--bg2);
-  }
-
-  @media (max-width: 640px) {
-    header { padding: 12px 16px; }
-    .page { padding: 24px 16px 48px; }
-    .layer-grid { grid-template-columns: 1fr; }
-    .result-panel { grid-template-columns: 1fr; }
-    footer { flex-direction: column; gap: 6px; padding: 16px; }
+  body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; min-height:100vh; font-size:14px; line-height:1.5; }
+  header { background:var(--bg2); border-bottom:1px solid var(--border); padding:16px 32px; display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; z-index:100; }
+  .logo { display:flex; align-items:center; gap:10px; }
+  .logo-mark { width:28px; height:28px; border-radius:7px; background:var(--purple-bg); display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:600; color:var(--purple); }
+  .logo-name { font-size:14px; font-weight:600; }
+  .logo-sub { font-size:11px; color:var(--text3); }
+  .header-badge { font-size:11px; font-weight:500; background:var(--teal-bg); color:var(--teal); padding:3px 10px; border-radius:20px; }
+  .page { max-width:860px; margin:0 auto; padding:32px 24px 64px; }
+  .hero { margin-bottom:32px; }
+  .hero-eyebrow { font-size:11px; font-weight:500; color:var(--text3); letter-spacing:.08em; text-transform:uppercase; margin-bottom:8px; }
+  .hero h1 { font-size:26px; font-weight:600; margin-bottom:8px; letter-spacing:-.01em; }
+  .hero h1 em { font-style:normal; color:var(--purple); }
+  .hero p { font-size:13px; color:var(--text2); line-height:1.65; max-width:520px; }
+  .section { margin-bottom:40px; }
+  .section-header { display:flex; align-items:center; gap:10px; margin-bottom:16px; }
+  .section-num { font-size:10px; font-weight:600; color:var(--text3); background:var(--bg3); border-radius:4px; padding:2px 6px; letter-spacing:.06em; }
+  .section-title { font-size:13px; font-weight:600; color:var(--text2); text-transform:uppercase; letter-spacing:.02em; }
+  .card { background:var(--bg2); border:1px solid var(--border); border-radius:var(--radius); padding:20px 22px; margin-bottom:10px; }
+  .layer-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-bottom:14px; }
+  .layer-card { background:var(--bg3); border:1px solid var(--border); border-radius:var(--radius-sm); padding:14px; }
+  .layer-name { font-size:13px; font-weight:600; margin-bottom:2px; }
+  .layer-desc { font-size:11px; color:var(--text3); margin-bottom:12px; }
+  .slider-lbl { font-size:11px; color:var(--text2); margin-bottom:3px; }
+  .slider-row { display:flex; align-items:center; gap:8px; }
+  .slider-val { font-size:18px; font-weight:600; min-width:42px; text-align:right; }
+  .scale-labels { display:flex; justify-content:space-between; font-size:10px; color:var(--text3); margin-top:2px; }
+  input[type=range] { -webkit-appearance:none; appearance:none; flex:1; width:100%; height:4px; border-radius:2px; background:var(--border2); outline:none; cursor:pointer; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance:none; width:16px; height:16px; border-radius:50%; background:#fff; border:2px solid #7F77DD; cursor:pointer; box-shadow:0 1px 3px rgba(0,0,0,0.15); }
+  .result-panel { background:var(--bg3); border:1px solid var(--border); border-radius:var(--radius-sm); padding:18px 20px; display:grid; grid-template-columns:1fr auto; gap:20px; align-items:center; }
+  .result-label { font-size:11px; font-weight:500; color:var(--text2); margin-bottom:10px; }
+  .bar-row { display:flex; gap:8px; align-items:center; margin-bottom:7px; }
+  .bar-name { font-size:11px; color:var(--text2); width:82px; }
+  .bar-wrap { flex:1; background:var(--border2); border-radius:4px; height:8px; overflow:hidden; }
+  .bar-fill { height:100%; border-radius:4px; transition:width .4s; }
+  .bar-pct { font-size:11px; color:var(--text2); width:34px; text-align:right; }
+  .formula { font-size:11px; color:var(--text3); margin-top:6px; }
+  .score-circle { width:76px; height:76px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:22px; font-weight:600; border:2px solid transparent; transition:all .4s; }
+  .signal-box { margin-top:8px; padding:5px 14px; border-radius:7px; font-size:13px; font-weight:600; text-align:center; letter-spacing:.05em; border:1.5px solid transparent; transition:all .4s; }
+  .conf-lbl { font-size:10px; color:var(--text3); text-align:center; margin-top:4px; }
+  .sim-note { font-size:11px; color:var(--text3); line-height:1.65; margin-top:12px; }
+  .row-label { font-size:11px; font-weight:500; color:var(--text3); letter-spacing:.07em; text-transform:uppercase; margin:16px 0 8px; }
+  .tag-group { display:flex; flex-wrap:wrap; gap:6px; }
+  .tag { font-size:12px; padding:5px 12px; border-radius:20px; border:1px solid var(--border2); color:var(--text2); cursor:pointer; background:var(--bg2); transition:all .15s; user-select:none; }
+  .tag:hover { border-color:var(--purple); color:var(--purple); }
+  .tag.on { background:var(--purple-bg); color:var(--purple); border-color:rgba(83,74,183,.35); font-weight:500; }
+  .tag.style-on { background:var(--blue-bg); color:var(--blue); border-color:rgba(24,95,165,.3); font-weight:500; }
+  .total-row { display:flex; align-items:center; gap:10px; background:var(--bg3); border:1px solid var(--border); border-radius:var(--radius-sm); padding:10px 14px; margin:14px 0; }
+  .total-badge { font-size:12px; font-weight:600; padding:3px 10px; border-radius:20px; border:1px solid transparent; transition:all .2s; white-space:nowrap; }
+  .total-hint { font-size:11px; color:var(--text2); }
+  .submit-btn { width:100%; padding:13px; background:var(--purple-bg); border:1.5px solid rgba(83,74,183,.4); border-radius:var(--radius-sm); font-size:14px; font-weight:600; color:var(--purple); cursor:pointer; transition:all .15s; }
+  .submit-btn:hover:not(:disabled) { background:#E0DEFA; border-color:var(--purple); }
+  .submit-btn:disabled { opacity:.35; cursor:default; }
+  .thank-msg { font-size:13px; font-weight:500; color:var(--teal); text-align:center; padding:12px 0; }
+  .res-row { display:flex; justify-content:space-between; font-size:12px; color:var(--text2); margin-bottom:3px; }
+  .res-bar-wrap { background:var(--border); border-radius:4px; height:7px; overflow:hidden; margin-bottom:10px; }
+  .res-bar { height:100%; border-radius:4px; transition:width .5s; }
+  .live-dot { display:inline-block; width:6px; height:6px; border-radius:50%; background:var(--teal); margin-right:5px; animation:pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+  footer { border-top:1px solid var(--border); padding:20px 32px; display:flex; justify-content:space-between; font-size:11px; color:var(--text3); background:var(--bg2); }
+  @media (max-width:640px) {
+    header { padding:12px 16px; }
+    .page { padding:24px 16px 48px; }
+    .layer-grid { grid-template-columns:1fr; }
+    .result-panel { grid-template-columns:1fr; }
+    footer { flex-direction:column; gap:6px; padding:16px; }
   }
 </style>
 </head>
@@ -191,13 +96,13 @@
       <div class="logo-sub">cognitive trading system</div>
     </div>
   </div>
-  <div class="header-badge">v0.8 — beta</div>
+  <div class="header-badge">v0.1 — beta</div>
 </header>
 
 <div class="page">
 
   <div class="hero">
-    <div class="hero-eyebrow"> Price Action | ICT & SMC | Volume Analysis Methodology</div>
+    <div class="hero-eyebrow">Price Action | ICT & SMC | Volume Analysis Methodology</div>
     <h1>Il tuo <em>guardian</em> contro le decisioni emotive</h1>
     <p>Un motore di confluenza a 3 layer che triangola ICT/SMC, Price Action e Volume — e produce un segnale unico: LONG / SHORT / WAIT.</p>
   </div>
@@ -210,7 +115,6 @@
     </div>
     <div class="card">
       <div style="font-size:12px;font-weight:500;color:var(--text2);margin-bottom:14px">Trascina i cursori per vedere il confluence score in tempo reale</div>
-
       <div class="layer-grid">
         <div class="layer-card">
           <div class="layer-name" style="color:var(--purple)">Layer 1 — ICT/SMC</div>
@@ -240,7 +144,6 @@
           <input type="range" min="10" max="60" step="5" value="25" id="w3" oninput="simUpdate()">
         </div>
       </div>
-
       <div class="result-panel">
         <div>
           <div class="result-label">Confluence score normalizzato</div>
@@ -267,8 +170,7 @@
           <div class="conf-lbl" id="confLbl">Alta confluenza</div>
         </div>
       </div>
-
-      <div class="sim-note">I pesi vengono ricalibrati dal modello AI in base al contesto di mercato: in Kill Zone il layer ICT pesa di più, in sessioni flat il volume diventa dominante. Segnali discordanti tra layer abbassano il confidence e generano WAIT.</div>
+      <div class="sim-note">I pesi vengono ricalibrati dal modello AI in base al contesto di mercato: in Kill Zone il layer ICT pesa di più, il volume diventa Trigger. Segnali discordanti tra layer abbassano il confidence e generano WAIT.</div>
     </div>
   </div>
 
@@ -278,11 +180,9 @@
       <span class="section-num">02</span>
       <span class="section-title">Community Survey — Configura i tuoi pesi</span>
     </div>
-
     <div class="card">
       <div style="font-size:13px;font-weight:600;margin-bottom:4px">Come configureresti i 3 layer?</div>
       <div style="font-size:12px;color:var(--text2);margin-bottom:16px">Trascina i cursori fino a 100% totale — poi invia la tua configurazione</div>
-
       <div class="layer-grid">
         <div class="layer-card">
           <div class="layer-name" style="color:var(--purple)">Layer 1 — ICT/SMC</div>
@@ -301,7 +201,7 @@
           </div>
         </div>
         <div class="layer-card">
-          <div class="layer-name" style="color:var(--teal)">Layer 3 — Volume Profile</div>
+          <div class="layer-name" style="color:var(--teal)">Layer 3 — Volume </div>
           <div class="layer-desc">POC · VAH · VAL</div>
           <div class="slider-row">
             <input type="range" min="0" max="60" step="5" value="25" id="sv3" oninput="surveyUpdate()">
@@ -309,7 +209,6 @@
           </div>
         </div>
       </div>
-
       <div class="row-label">Aggiungeresti un quarto indicatore?</div>
       <div class="tag-group" id="extraTags">
         <span class="tag" onclick="this.classList.toggle('on')">Sentiment / COT</span>
@@ -319,7 +218,6 @@
         <span class="tag" onclick="this.classList.toggle('on')">Orderbook depth</span>
         <span class="tag" onclick="this.classList.toggle('on')">Nessuno — 3 bastano</span>
       </div>
-
       <div class="row-label">Il tuo stile operativo</div>
       <div class="tag-group" id="styleTags">
         <span class="tag" onclick="selectStyle(this)">Scalping (1-5m)</span>
@@ -327,29 +225,28 @@
         <span class="tag" onclick="selectStyle(this)">Swing (4h-D)</span>
         <span class="tag" onclick="selectStyle(this)">Ibrido</span>
       </div>
-
       <div class="total-row">
         <div class="total-badge" id="totalBadge" style="background:var(--teal-bg);color:var(--teal);border-color:rgba(15,110,86,.3)">Totale: 100%</div>
         <div class="total-hint" id="totalHint">Distribuzione valida — pronto per votare</div>
       </div>
-
       <button class="submit-btn" id="submitBtn" onclick="submitVote()">Invia la mia configurazione</button>
       <div id="thankMsg" style="display:none" class="thank-msg">Grazie! Il tuo voto è stato registrato.</div>
     </div>
 
+    <!-- RISULTATI LIVE -->
     <div class="card">
-      <div style="font-size:13px;font-weight:600;margin-bottom:2px">Risultati in tempo reale</div>
-      <div style="font-size:12px;color:var(--text2);margin-bottom:16px"><span id="voteCount">247</span> trader hanno già risposto</div>
-
-      <div class="res-row"><span>ICT / SMC</span><span id="r1p" style="color:var(--purple);font-weight:500">38%</span></div>
-      <div class="res-bar-wrap"><div class="res-bar" id="rb1" style="width:38%;background:#7F77DD"></div></div>
-      <div class="res-row"><span>Price Action</span><span id="r2p" style="color:var(--blue);font-weight:500">34%</span></div>
-      <div class="res-bar-wrap"><div class="res-bar" id="rb2" style="width:34%;background:#378ADD"></div></div>
-      <div class="res-row"><span>Volume Profile</span><span id="r3p" style="color:var(--teal);font-weight:500">28%</span></div>
-      <div class="res-bar-wrap"><div class="res-bar" id="rb3" style="width:28%;background:#1D9E75"></div></div>
-
+      <div style="font-size:13px;font-weight:600;margin-bottom:2px">
+        <span class="live-dot"></span>Risultati in tempo reale
+      </div>
+      <div style="font-size:12px;color:var(--text2);margin-bottom:16px"><span id="voteCount">—</span> trader hanno già risposto</div>
+      <div class="res-row"><span>ICT / SMC</span><span id="r1p" style="color:var(--purple);font-weight:500">—</span></div>
+      <div class="res-bar-wrap"><div class="res-bar" id="rb1" style="width:0%;background:#7F77DD"></div></div>
+      <div class="res-row"><span>Price Action</span><span id="r2p" style="color:var(--blue);font-weight:500">—</span></div>
+      <div class="res-bar-wrap"><div class="res-bar" id="rb2" style="width:0%;background:#378ADD"></div></div>
+      <div class="res-row"><span>Volume Profile</span><span id="r3p" style="color:var(--teal);font-weight:500">—</span></div>
+      <div class="res-bar-wrap"><div class="res-bar" id="rb3" style="width:0%;background:#1D9E75"></div></div>
       <div style="font-size:11px;font-weight:500;color:var(--text3);letter-spacing:.07em;text-transform:uppercase;margin:16px 0 10px">Indicatori extra più richiesti</div>
-      <div id="extraResults"></div>
+      <div id="extraResults"><div style="font-size:11px;color:var(--text3)">Caricamento...</div></div>
     </div>
   </div>
 
@@ -361,6 +258,25 @@
 </footer>
 
 <script>
+/* ===== SUPABASE CONFIG ===== */
+const SUPA_URL = 'https://gbzgsrtbifxgkexazfsn.supabase.co';
+const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdiemdzcnRiaWZ4Z2tleGF6ZnNuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ0NTk1MjYsImV4cCI6MjA5MDAzNTUyNn0.-AOy_AGUpSfo4sYuXd3QQdwJweHxeMXlkyge658xd0U';
+
+async function sbFetch(path, opts={}) {
+  const res = await fetch(SUPA_URL + '/rest/v1/' + path, {
+    headers: {
+      'apikey': SUPA_KEY,
+      'Authorization': 'Bearer ' + SUPA_KEY,
+      'Content-Type': 'application/json',
+      'Prefer': 'return=minimal'
+    },
+    ...opts
+  });
+  if (opts.method === 'POST') return res;
+  return res.json();
+}
+
+/* ===== SIMULATORE ===== */
 function simUpdate() {
   const l1=+document.getElementById('l1').value, l2=+document.getElementById('l2').value, l3=+document.getElementById('l3').value;
   const rw1=+document.getElementById('w1').value, rw2=+document.getElementById('w2').value, rw3=+document.getElementById('w3').value;
@@ -392,6 +308,7 @@ function simUpdate() {
 }
 function setC(c,b,bg,color,border){ c.style.background=bg; c.style.color=color; c.style.borderColor=border; b.style.background=bg; b.style.color=color; b.style.borderColor=border; }
 
+/* ===== SURVEY ===== */
 function surveyUpdate() {
   const v1=+document.getElementById('sv1').value, v2=+document.getElementById('sv2').value, v3=+document.getElementById('sv3').value;
   const tot=v1+v2+v3;
@@ -407,39 +324,76 @@ function surveyUpdate() {
 
 function selectStyle(el){ document.querySelectorAll('#styleTags .tag').forEach(t=>t.classList.remove('style-on','on')); el.classList.add('style-on'); }
 
-const extraVotes={'Sentiment / COT':89,'Session VWAP':134,'Market Maker Profile':61,'News / macro filter':43,'Orderbook depth':37,'Nessuno — 3 bastano':72};
-let totalVotes=247, hasVoted=false, simAvg=[38,34,28];
+let hasVoted = false;
 
-function submitVote(){
-  if(hasVoted)return; hasVoted=true;
-  const v1=+document.getElementById('sv1').value, v2=+document.getElementById('sv2').value, v3=+document.getElementById('sv3').value;
-  totalVotes++;
-  simAvg[0]=Math.round((simAvg[0]*247+v1)/totalVotes);
-  simAvg[1]=Math.round((simAvg[1]*247+v2)/totalVotes);
-  simAvg[2]=100-simAvg[0]-simAvg[1];
-  document.getElementById('voteCount').textContent=totalVotes;
-  document.getElementById('r1p').textContent=simAvg[0]+'%'; document.getElementById('rb1').style.width=simAvg[0]+'%';
-  document.getElementById('r2p').textContent=simAvg[1]+'%'; document.getElementById('rb2').style.width=simAvg[1]+'%';
-  document.getElementById('r3p').textContent=simAvg[2]+'%'; document.getElementById('rb3').style.width=simAvg[2]+'%';
-  document.getElementById('submitBtn').style.display='none';
-  document.getElementById('thankMsg').style.display='block';
-  renderExtra();
+async function submitVote() {
+  if(hasVoted) return;
+  const v1=+document.getElementById('sv1').value;
+  const v2=+document.getElementById('sv2').value;
+  const v3=+document.getElementById('sv3').value;
+  const extras=Array.from(document.querySelectorAll('#extraTags .tag.on')).map(t=>t.textContent);
+  const styleEl=document.querySelector('#styleTags .tag.style-on');
+  const style=styleEl ? styleEl.textContent : null;
+
+  document.getElementById('submitBtn').disabled=true;
+  document.getElementById('submitBtn').textContent='Invio in corso...';
+
+  try {
+    await sbFetch('votes', {
+      method: 'POST',
+      body: JSON.stringify({ layer1:v1, layer2:v2, layer3:v3, extras:extras, style:style })
+    });
+    hasVoted=true;
+    document.getElementById('submitBtn').style.display='none';
+    document.getElementById('thankMsg').style.display='block';
+    await loadResults();
+  } catch(e) {
+    document.getElementById('submitBtn').disabled=false;
+    document.getElementById('submitBtn').textContent='Invia la mia configurazione';
+    alert('Errore durante l\'invio. Riprova.');
+  }
 }
 
-function renderExtra(){
-  const container=document.getElementById('extraResults'); container.innerHTML='';
-  const sel=Array.from(document.querySelectorAll('#extraTags .tag.on')).map(t=>t.textContent);
-  sel.forEach(s=>{if(extraVotes[s])extraVotes[s]++;});
-  const sorted=Object.entries(extraVotes).sort((a,b)=>b[1]-a[1]), maxV=sorted[0][1];
-  sorted.forEach(([label,v])=>{
-    const pct=Math.round(v/totalVotes*100), isUser=sel.includes(label);
-    const el=document.createElement('div'); el.style.marginBottom='10px';
-    el.innerHTML=`<div style="display:flex;justify-content:space-between;font-size:12px;color:${isUser?'var(--blue)':'var(--text2)'};margin-bottom:3px;font-weight:${isUser?'500':'400'}"><span>${label}</span><span>${pct}%</span></div><div style="background:var(--border);border-radius:4px;height:7px;overflow:hidden"><div style="height:100%;border-radius:4px;background:${isUser?'#378ADD':'#B4B2A9'};width:${Math.round(v/maxV*100)}%;transition:width .5s"></div></div>`;
-    container.appendChild(el);
-  });
+async function loadResults() {
+  try {
+    const data = await sbFetch('votes?select=layer1,layer2,layer3,extras');
+    if(!data || data.length===0){
+      document.getElementById('voteCount').textContent='0';
+      document.getElementById('extraResults').innerHTML='<div style="font-size:11px;color:var(--text3)">Nessun voto ancora — sii il primo!</div>';
+      return;
+    }
+    const n = data.length;
+    document.getElementById('voteCount').textContent=n;
+
+    const avg1=Math.round(data.reduce((s,r)=>s+r.layer1,0)/n);
+    const avg2=Math.round(data.reduce((s,r)=>s+r.layer2,0)/n);
+    const avg3=100-avg1-avg2;
+
+    document.getElementById('r1p').textContent=avg1+'%'; document.getElementById('rb1').style.width=avg1+'%';
+    document.getElementById('r2p').textContent=avg2+'%'; document.getElementById('rb2').style.width=avg2+'%';
+    document.getElementById('r3p').textContent=avg3+'%'; document.getElementById('rb3').style.width=avg3+'%';
+
+    // extras
+    const extraCount={};
+    data.forEach(r=>{ if(r.extras) r.extras.forEach(e=>{ extraCount[e]=(extraCount[e]||0)+1; }); });
+    const sorted=Object.entries(extraCount).sort((a,b)=>b[1]-a[1]);
+    const container=document.getElementById('extraResults');
+    if(sorted.length===0){ container.innerHTML='<div style="font-size:11px;color:var(--text3)">Nessuna preferenza extra ancora.</div>'; return; }
+    const maxV=sorted[0][1];
+    container.innerHTML=sorted.map(([label,v])=>`
+      <div style="margin-bottom:10px">
+        <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text2);margin-bottom:3px"><span>${label}</span><span>${Math.round(v/n*100)}%</span></div>
+        <div style="background:var(--border);border-radius:4px;height:7px;overflow:hidden"><div style="height:100%;border-radius:4px;background:#B4B2A9;width:${Math.round(v/maxV*100)}%;transition:width .5s"></div></div>
+      </div>`).join('');
+  } catch(e) {
+    document.getElementById('extraResults').innerHTML='<div style="font-size:11px;color:var(--text3)">Errore caricamento dati.</div>';
+  }
 }
 
-simUpdate(); surveyUpdate(); renderExtra();
+/* init */
+simUpdate();
+surveyUpdate();
+loadResults();
 </script>
 </body>
 </html>
